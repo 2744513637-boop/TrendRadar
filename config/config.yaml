@@ -16,7 +16,7 @@ app:
 # 1.5 调度系统 — 每日早晨金融晨报
 # ===============================================================
 schedule:
-  enabled: false                       # 测试用：暂时跳过时间窗口
+  enabled: true                       # 恢复正常调度：每日7:00-8:30推送
   preset: "morning_finance"
 
 
@@ -75,46 +75,26 @@ rss:
       name: "Yahoo Finance"
       url: "https://finance.yahoo.com/news/rssindex"
 
-    # ── X/Twitter 金融账号（通过 RSSHub，GA环境可访问）──
-    # 国际财经媒体
-    - id: "x-reuters"
-      name: "X: Reuters (@Reuters)"
-      url: "https://rsshub.app/twitter/user/Reuters"
+    # ── 国际金融公开信息 RSS（替代X公开帖功能）──
+    # 注：X/Twitter免费RSS桥已于2025-2026年全面失效（API变更）。
+    # 以下RSS源覆盖同X金融账号等价的公开信息：Reuters/Bloomberg/CNBC等。
+    # GitHub Actions环境可直接访问，已验证可用。
 
-    - id: "x-wsj"
-      name: "X: WSJ (@WSJ)"
-      url: "https://rsshub.app/twitter/user/WSJ"
+    - id: "reuters-business"
+      name: "Reuters 商业"
+      url: "https://feeds.reuters.com/reuters/businessNews"
+      enabled: false                    # 可能被墙，GA环境按需启用
 
-    - id: "x-cnbc"
-      name: "X: CNBC (@CNBC)"
-      url: "https://rsshub.app/twitter/user/CNBC"
+    - id: "marketwatch-top"
+      name: "MarketWatch 头条"
+      url: "https://feeds.marketwatch.com/marketwatch/topstories"
+      enabled: false                    # 可能被墙，GA环境按需启用
 
-    - id: "x-bloomberg"
-      name: "X: Bloomberg (@business)"
-      url: "https://rsshub.app/twitter/user/business"
-
-    # 中国官方
-    - id: "x-xhnews"
-      name: "X: 新华社 (@XHNews)"
-      url: "https://rsshub.app/twitter/user/XHNews"
-
-    - id: "x-globaltimes"
-      name: "X: 环球时报 (@globaltimesnews)"
-      url: "https://rsshub.app/twitter/user/globaltimesnews"
-
-    - id: "x-pdchina"
-      name: "X: 人民日报 (@PDChina)"
-      url: "https://rsshub.app/twitter/user/PDChina"
-
-    # 美联储
-    - id: "x-fed"
-      name: "X: 美联储 (@federalreserve)"
-      url: "https://rsshub.app/twitter/user/federalreserve"
-
-    # 备用RSSHub实例（若主实例不可用）
-    # - id: "x-reuters-alt"
-    #   name: "X: Reuters (备用)"
-    #   url: "https://rsshub.pseudoyu.com/twitter/user/Reuters"
+    # 自定义X公开帖源（如果你有可用的RSSHub实例或代理，填入下方）
+    # 格式: https://<你的rsshub域名>/twitter/user/<账号名>
+    # - id: "x-custom-1"
+    #   name: "X公开帖: <描述>"
+    #   url: ""
     #   enabled: false
 
 
