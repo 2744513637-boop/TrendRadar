@@ -150,7 +150,58 @@ presets:
 
 
   # ───────────────────────────────────────────────────────────
-  # 2️⃣ morning_evening - 早晚汇总（推荐）
+  # 2️⃣ morning_finance - A股金融晨报（每日早晨7:00-8:30推送）
+  #
+  # 全天静默采集，早晨一次性生成并推送金融晨报。
+  # 适合：A股投资者、金融从业者
+  #
+  # 默认（全天静默）：采集 ✓ | 分析 ✗ | 推送 ✗
+  # 早间晨报：采集 ✓ | 分析 ✓ | 推送 ✓ | 每日1次
+  # ───────────────────────────────────────────────────────────
+  morning_finance:
+    name: "A股金融晨报"
+    description: "每日早晨7点推送金融晨报。全天静默采集，早晨一次性分析推送。"
+
+    default:
+      collect: true
+      analyze: false
+      ai_mode: "daily"
+      push: false
+      report_mode: "daily"
+      filter_method: "keyword"
+      once:
+        analyze: true
+        push: true
+
+    periods:
+      morning_briefing:
+        name: "盘前晨报"
+        start: "07:00"
+        end: "08:30"
+        analyze: true
+        ai_mode: "daily"
+        push: true
+        report_mode: "daily"
+        once:
+          analyze: true
+          push: true
+
+    day_plans:
+      all_day:
+        periods: ["morning_briefing"]
+
+    week_map:
+      1: "all_day"
+      2: "all_day"
+      3: "all_day"
+      4: "all_day"
+      5: "all_day"
+      6: "all_day"
+      7: "all_day"
+
+
+  # ───────────────────────────────────────────────────────────
+  # 3️⃣ morning_evening - 早晚汇总（推荐）
   #
   # 全天推送当前热点 + 晚间做一次当日全天汇总。
   # 适合：大多数人
