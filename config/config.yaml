@@ -16,7 +16,7 @@ app:
 # 1.5 调度系统 — 每日早晨金融晨报
 # ===============================================================
 schedule:
-  enabled: true
+  enabled: false                       # 测试用：暂时跳过时间窗口
   preset: "morning_finance"
 
 
@@ -61,73 +61,61 @@ rss:
     max_age_days: 2
 
   feeds:
-    # ── 财联社 RSS（核心来源）──
-    - id: "cls-rss"
-      name: "财联社电报"
-      url: "https://www.cls.cn/api/sw?app=CailianpressWeb&os=web&sv=8.4.6"
-      enabled: false
+    # ── 国际财经 RSS（可靠源）──
+    - id: "cnbc"
+      name: "CNBC 财经"
+      url: "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"
 
-    # ── X/Twitter 金融账号（通过 RSSHub）──
+    - id: "google-finance"
+      name: "Google News 商业"
+      url: "https://news.google.com/rss/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB"
+      max_age_days: 1
+
+    - id: "yahoo-finance"
+      name: "Yahoo Finance"
+      url: "https://finance.yahoo.com/news/rssindex"
+
+    # ── X/Twitter 金融账号（通过 RSSHub，GA环境可访问）──
     # 国际财经媒体
-    - id: "x-bloomberg"
-      name: "Bloomberg (@business)"
-      url: "https://rsshub.app/twitter/user/business"
-      max_age_days: 2
-
     - id: "x-reuters"
-      name: "Reuters (@Reuters)"
+      name: "X: Reuters (@Reuters)"
       url: "https://rsshub.app/twitter/user/Reuters"
-      max_age_days: 2
 
     - id: "x-wsj"
-      name: "WSJ (@WSJ)"
+      name: "X: WSJ (@WSJ)"
       url: "https://rsshub.app/twitter/user/WSJ"
-      max_age_days: 2
 
     - id: "x-cnbc"
-      name: "CNBC (@CNBC)"
+      name: "X: CNBC (@CNBC)"
       url: "https://rsshub.app/twitter/user/CNBC"
-      max_age_days: 2
 
-    # 中国财经
-    - id: "x-caixin"
-      name: "Caixin (@caixin)"
-      url: "https://rsshub.app/twitter/user/caixin"
-      max_age_days: 2
+    - id: "x-bloomberg"
+      name: "X: Bloomberg (@business)"
+      url: "https://rsshub.app/twitter/user/business"
 
+    # 中国官方
     - id: "x-xhnews"
-      name: "Xinhua News (@XHNews)"
+      name: "X: 新华社 (@XHNews)"
       url: "https://rsshub.app/twitter/user/XHNews"
-      max_age_days: 2
 
     - id: "x-globaltimes"
-      name: "Global Times (@globaltimesnews)"
+      name: "X: 环球时报 (@globaltimesnews)"
       url: "https://rsshub.app/twitter/user/globaltimesnews"
-      max_age_days: 2
 
-    # 金融数据与分析
-    - id: "x-sinomarket"
-      name: "China Market (@Sino_Market)"
-      url: "https://rsshub.app/twitter/user/Sino_Market"
-      max_age_days: 2
+    - id: "x-pdchina"
+      name: "X: 人民日报 (@PDChina)"
+      url: "https://rsshub.app/twitter/user/PDChina"
 
-    - id: "x-chinamacro"
-      name: "China Macro (@ChinaMacro)"
-      url: "https://rsshub.app/twitter/user/ChinaMacro"
-      max_age_days: 2
-
-    # 美联储与央行
-    - id: "x-federalreserve"
-      name: "Federal Reserve (@federalreserve)"
+    # 美联储
+    - id: "x-fed"
+      name: "X: 美联储 (@federalreserve)"
       url: "https://rsshub.app/twitter/user/federalreserve"
-      max_age_days: 2
 
-    # 自定义X源示例（按需取消注释）
-    # - id: "x-custom"
-    #   name: "自定义X账号"
-    #   url: "https://rsshub.app/twitter/user/账号名"
+    # 备用RSSHub实例（若主实例不可用）
+    # - id: "x-reuters-alt"
+    #   name: "X: Reuters (备用)"
+    #   url: "https://rsshub.pseudoyu.com/twitter/user/Reuters"
     #   enabled: false
-    #   max_age_days: 2
 
 
 # ===============================================================
@@ -270,7 +258,7 @@ ai:
 ai_analysis:
   enabled: true
   language: "Chinese"
-  prompt_file: "../custom/ai/morning_report_prompt.txt"
+  prompt_file: "morning_report_prompt.txt"
 
   mode: "daily"
   max_news_for_analysis: 200
